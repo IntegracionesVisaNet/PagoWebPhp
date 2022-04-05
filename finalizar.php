@@ -5,9 +5,16 @@
     $amount = $_GET["amount"];
     $purchaseNumber = $_GET["purchaseNumber"];    
 
-    $token = generateToken();
-
-    $data = generateAuthorization($amount, $purchaseNumber, $transactionToken, $token);
+    if ($channel == "pagoefectivo") {
+        // CIP => $transactionToken
+        // Registrar código CIP en su BD y asociarlo al pedido
+        $url = $_POST["url"];
+        header('Location: '.$url);
+        exit;
+    } else {   
+        $token = generateToken();
+        $data = generateAuthorization($amount, $purchaseNumber, $transactionToken, $token);
+    }
 ?>
 
 <!DOCTYPE html>
